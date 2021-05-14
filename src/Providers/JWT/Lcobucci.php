@@ -68,7 +68,7 @@ class Lcobucci extends Provider implements JWT
         parent::__construct($secret, $algo, $keys);
         $this->signer = $this->getSigner();
 
-        if (! is_null($config)) {
+        if (!is_null($config)) {
             $this->config = $config;
         } elseif ($this->isAsymmetric()) {
             $this->config = Configuration::forAsymmetricSigner($this->signer, $this->getSigningKey(), $this->getVerificationKey());
@@ -234,7 +234,7 @@ class Lcobucci extends Provider implements JWT
     protected function getSigningKey()
     {
         return $this->isAsymmetric() ?
-            InMemory::plainText($this->getPrivateKey(), $this->getPassphrase() ?? '') :
+            InMemory::plainText($this->getPrivateKey() ?? "", $this->getPassphrase() ?? '') :
             InMemory::plainText($this->getSecret());
     }
 
